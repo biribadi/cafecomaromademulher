@@ -1,8 +1,8 @@
-package br.com.entelgy.service;
+package br.com.entelgy.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.entelgy.model.Ingridient;
+import br.com.entelgy.models.Ingridient;
 import br.com.entelgy.repository.IngridientDao;
 
 public class IngridientServiceImpl implements IngridientService{

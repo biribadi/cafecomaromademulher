@@ -1,4 +1,4 @@
-package br.com.entelgy.service;
+package br.com.entelgy.services;
 
 public class SnackService{
 	

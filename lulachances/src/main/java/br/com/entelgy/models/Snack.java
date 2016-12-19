@@ -1,4 +1,4 @@
-package br.com.entelgy.model;
+package br.com.entelgy.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -65,5 +65,7 @@ public class Snack implements Serializable{
 	public void setIngridients(Set<Ingridient> ingridients) {
 		this.ingridients = ingridients;
 	}
+	
+	public Snac
 
 }

@@ -1,4 +1,4 @@
-package br.com.entelgy.model;
+package br.com.entelgy.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

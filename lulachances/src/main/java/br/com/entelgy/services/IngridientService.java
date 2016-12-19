@@ -1,8 +1,8 @@
-package br.com.entelgy.service;
+package br.com.entelgy.services;
 
 import org.springframework.stereotype.Service;
 
-import br.com.entelgy.model.Ingridient;
+import br.com.entelgy.models.Ingridient;
 
 @Service(value="ingridientService")
 public interface IngridientService {

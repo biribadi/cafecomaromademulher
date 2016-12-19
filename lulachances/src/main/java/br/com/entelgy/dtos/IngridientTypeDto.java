@@ -1,17 +1,12 @@
-package br.com.entelgy.model;
+package br.com.entelgy.dtos;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.NotEmpty;
 
-@Entity
-public class Payment {
+public class IngridientTypeDto {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotEmpty
 	private String description;
 
 	public Integer getId() {
@@ -29,7 +24,4 @@ public class Payment {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-
 }

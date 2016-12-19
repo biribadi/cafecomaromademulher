@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import br.com.entelgy.model.Snack;
+import br.com.entelgy.models.Snack;
 import br.com.entelgy.repository.IngridientDao;
 
 @Configuration
