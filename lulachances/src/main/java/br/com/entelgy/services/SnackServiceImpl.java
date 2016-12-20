@@ -1,32 +1,35 @@
 package br.com.entelgy.services;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import br.com.entelgy.dtos.SnackDto;
 import br.com.entelgy.models.Snack;
-import br.com.entelgy.repository.SnackDAO;
+import br.com.entelgy.repository.SnackRepository;
 
-public class SnackServiceImpl {
+@Component("snackService")
+@Transactional
+public class SnackServiceImpl implements SnackService{
 	
 	@Autowired
-	private SnackDAO snackDao;
+	private SnackRepository snackRepository;
 	
-	public Snack retrieveSnackById(SnackDto snackDto){
-		return snackDao.findOne(snackDto.getId());
+	@Override
+	public List<Snack> findAll() {
+		return (List<Snack>) snackRepository.findAll();
 	}
-	
-	public void teste(SnackDto snackDto){
-		snackDao.save(toEntity(snackDto));
+
+	@Override
+	public Snack findById(Integer id) {
+		return snackRepository.findOne(id);
 	}
-	
-	private Snack toEntity(SnackDto snackDto){
-		Snack snack = new Snack();
-		snack.setId(snackDto.getId());
-		snack.setDescription(snackDto.getDescription());
-		
-		snack.setIngridients(snackDto.getIngridients());
-		snack.set
-		
+
+	@Override
+	public Snack save(Snack snack) {
+		return snackRepository.save(snack);
 	}
 	
 }

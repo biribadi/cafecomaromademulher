@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -65,7 +66,5 @@ public class Snack implements Serializable{
 	public void setIngridients(Set<Ingridient> ingridients) {
 		this.ingridients = ingridients;
 	}
-	
-	public Snac
 
 }

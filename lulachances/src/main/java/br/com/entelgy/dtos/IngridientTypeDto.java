@@ -7,7 +7,7 @@ public class IngridientTypeDto {
 	private Integer id;
 	
 	@NotEmpty
-	private String description;
+	private String type;
 
 	public Integer getId() {
 		return id;
@@ -17,11 +17,13 @@ public class IngridientTypeDto {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getType() {
+		return type;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setType(String type) {
+		this.type = type;
 	}
+
+	
 }

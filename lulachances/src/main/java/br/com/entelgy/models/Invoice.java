@@ -14,8 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(name = "Invoice.findInvoicesUndelivered", query = "SELECT i FROM Invoice i join i.develiry d"
+		+ " WHERE d.isDelivered = false")
 public class Invoice implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -43,6 +46,8 @@ public class Invoice implements Serializable{
 	private Delivery develiry;
 	
 	private Calendar createdOn;
+	
+	private Boolean exchangeNeeded;
 
 	public Integer getId() {
 		return id;
@@ -100,6 +105,11 @@ public class Invoice implements Serializable{
 		this.createdOn = createdOn;
 	}
 
-	
-	
+	public Boolean getExchangeNeeded() {
+		return exchangeNeeded;
+	}
+
+	public void setExchangeNeeded(Boolean exchangeNeeded) {
+		this.exchangeNeeded = exchangeNeeded;
+	}
 }

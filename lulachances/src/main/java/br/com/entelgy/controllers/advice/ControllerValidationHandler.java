@@ -28,10 +28,9 @@ public class ControllerValidationHandler {
   public MessageDto processValidationError(MethodArgumentNotValidException ex) {
     BindingResult result = ex.getBindingResult();
     FieldError error = result.getFieldError();
-
     return processFieldError(error);
   }
-
+  
   private MessageDto processFieldError(FieldError error) {
     MessageDto message = null;
     if (error != null) {

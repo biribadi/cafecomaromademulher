@@ -1,5 +1,6 @@
 package br.com.entelgy.models;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -10,14 +11,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Customer {
+public class Customer implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
 	@OneToOne(optional=false)
-	private User user;
+	private UserSnacks user;
 	
 	private String address;
 	
@@ -48,14 +51,11 @@ public class Customer {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public UserSnacks getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserSnacks user) {
 		this.user = user;
 	}
-	
-	
-
 }

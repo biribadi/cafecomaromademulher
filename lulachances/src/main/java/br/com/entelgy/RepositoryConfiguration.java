@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import br.com.entelgy.models.Snack;
-import br.com.entelgy.repository.IngridientDao;
+import br.com.entelgy.repository.IngridientRepository;
 
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses={Snack.class})
-@EnableJpaRepositories(basePackageClasses={IngridientDao.class})
+@EnableJpaRepositories(basePackageClasses={IngridientRepository.class})
 @EnableTransactionManagement
 public class RepositoryConfiguration {
 	
