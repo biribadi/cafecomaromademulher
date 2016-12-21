@@ -1,6 +1,5 @@
-package br.com.entelgy;
+package br.com.entelgy.configuration;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -10,7 +9,6 @@ import br.com.entelgy.models.Snack;
 import br.com.entelgy.repository.IngridientRepository;
 
 @Configuration
-@EnableAutoConfiguration
 @EntityScan(basePackageClasses={Snack.class})
 @EnableJpaRepositories(basePackageClasses={IngridientRepository.class})
 @EnableTransactionManagement

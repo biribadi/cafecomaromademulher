@@ -1,5 +1,7 @@
 package br.com.entelgy.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,12 @@ public class IngridientServiceImpl implements IngridientService{
 
 	public boolean isIngridientAlreadyInserted(Ingridient ingridients) {
 		return false;
+	}
+
+	@Override
+	public List<Ingridient> findAllByLocale(String language) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -48,6 +48,8 @@ public class Invoice implements Serializable{
 	private Calendar createdOn;
 	
 	private Boolean exchangeNeeded;
+	
+	private String address;
 
 	public Integer getId() {
 		return id;
@@ -112,4 +114,14 @@ public class Invoice implements Serializable{
 	public void setExchangeNeeded(Boolean exchangeNeeded) {
 		this.exchangeNeeded = exchangeNeeded;
 	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	
 }

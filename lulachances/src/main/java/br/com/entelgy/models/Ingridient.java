@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
@@ -27,14 +28,11 @@ public class Ingridient implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-//	@ElementCollection(targetClass = IngridientType.class, fetch = FetchType.EAGER)
-//	@JoinTable(name = "ingredient_type", joinColumns = @JoinColumn(name = "ingredientid"))
-//	@Column(name = "ingredienttype", nullable = false)
-//	@Enumerated(EnumType.STRING)
 	@ManyToOne
 	private IngridientType ingridientType;
 	
-	private String description;
+	@OneToOne
+	private DescriptionItem description;
 	
 	private BigDecimal price;
 
@@ -54,14 +52,6 @@ public class Ingridient implements Serializable {
 		this.ingridientType = ingridientType;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -69,11 +59,12 @@ public class Ingridient implements Serializable {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
-	
-	
-	
-	
-	
 
+	public DescriptionItem getDescription() {
+		return description;
+	}
+
+	public void setDescription(DescriptionItem description) {
+		this.description = description;
+	}
 }

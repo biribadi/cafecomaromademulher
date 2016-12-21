@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import br.com.entelgy.models.UserSnacks;
 import br.com.entelgy.repository.UserRepository;
+import br.com.entelgy.secutiry.JwtUserFactory;
 
+@Service("userDetailsService")
 public class UsuarioServiceImpl implements UserDetailsService{
 
 	@Autowired
@@ -17,11 +20,11 @@ public class UsuarioServiceImpl implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		List<UserSnacks> users = userRepository.findAllUserByEmail(email);
-		if (users == null || users.isEmpty()){
+		UserSnacks user = userRepository.findByEmail(email);
+		if (user == null ){
 			throw new UsernameNotFoundException("user not found");
 		}
-		return users.get(0);
+		return JwtUserFactory.create(user);
 	}
 
 }

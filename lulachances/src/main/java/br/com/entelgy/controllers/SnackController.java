@@ -3,7 +3,10 @@ package br.com.entelgy.controllers;
 import java.net.URI;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
+
+import javax.servlet.ServletRequest;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +32,7 @@ import br.com.entelgy.services.IngridientService;
 import br.com.entelgy.services.SnackService;
 
 @RestController
-@RequestMapping(value="snacks")
+@RequestMapping(value="snack")
 public class SnackController extends BaseController{
 
 	@Autowired
@@ -37,18 +41,15 @@ public class SnackController extends BaseController{
 	@Autowired
 	private SnackService snackService;
 	
-	@Autowired
-	private ModelMapper modelMapper;
-
 	@RequestMapping(path = "ingridients", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<IngridientDto>> listIngridients() {
-
+		
 		List<Ingridient> ingridients = (List<Ingridient>) ingridientService.findAll();
 		if (ingridients == null){
 			return new ResponseEntity<List<IngridientDto>>(HttpStatus.NO_CONTENT);
 		}
 		List<IngridientDto> dtos = ingridients.stream().map(ingridient -> convertToIngridientDto(ingridient)).collect(Collectors.toList());
-		return new ResponseEntity<List<IngridientDto>>(dtos, HttpStatus.OK);
+		return ResponseEntity.ok(dtos);
 	}
 
 	@RequestMapping( method = RequestMethod.GET, produces="application/json")
@@ -56,8 +57,7 @@ public class SnackController extends BaseController{
 
 		List<Snack> snacks = snackService.findAll();
 		List<SnackDto> dtos = snacks.stream().map(snack -> convertToSnackDto(snack)).collect(Collectors.toList());
-		return new ResponseEntity<List<SnackDto>>(dtos, HttpStatus.OK);
-
+		return ResponseEntity.ok(dtos);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -69,7 +69,7 @@ public class SnackController extends BaseController{
 		snackService.save(snack);
 
 		URI resourcePath = ucBuilder.path("/snacks/{id}").buildAndExpand(snack.getId()).toUri();
-		return new ResponseEntity<Void>(mountHeader(resourcePath), HttpStatus.CREATED);
+		return ResponseEntity.created(resourcePath).build();
 	}
 	
 //	@RequestMapping(value = "ingridients", method = RequestMethod.POST, consumes="application/json")
@@ -93,25 +93,7 @@ public class SnackController extends BaseController{
 //	    return new ResponseEntity<Ingridient>(ingridient, HttpStatus.OK);
 //	}
 
-	private SnackDto convertToSnackDto(Snack snack) {
-	    SnackDto snackDto = modelMapper.map(snack, SnackDto.class);
-	    return snackDto;
-	}
 	
-	private Snack convertToSnackEntity(SnackDto snackDto) throws ParseException {
-		Snack snack = modelMapper.map(snackDto, Snack.class);
-//	    if (postDto.getId() != null) {
-//	        Post oldPost = postService.getPostById(postDto.getId());
-//	        post.setRedditID(oldPost.getRedditID());
-//	        post.setSent(oldPost.isSent());
-//	    }
-	    return snack;
-	}
-	
-	private IngridientDto convertToIngridientDto(Ingridient snack) {
-		IngridientDto ingridientDto = modelMapper.map(snack, IngridientDto.class);
-	    return ingridientDto;
-	}
 	
 //	private Ingridient convertToIngridientEntity(IngridientDto ingridientDto) throws ParseException {
 //		Ingridient ingridient = modelMapper.map(ingridientDto, Ingridient.class);

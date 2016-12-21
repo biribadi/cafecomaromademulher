@@ -15,25 +15,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
 @Entity
-public class Snack implements Serializable{
-	
+public class Snack implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String description;
-	
+
 	@NotNull
 	private BigDecimal price;
-	
+
 	@ManyToMany
-    @JoinTable(name="snacks_has_ingridients", joinColumns=
-    {@JoinColumn(name="snack_id")}, inverseJoinColumns=
-     {@JoinColumn(name="ingridient_id")})
+	@JoinTable(name = "snacks_has_ingridients", joinColumns = { @JoinColumn(name = "snack_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "ingridient_id") })
 	private Set<Ingridient> ingridients;
-		
 
 	public Integer getId() {
 		return id;

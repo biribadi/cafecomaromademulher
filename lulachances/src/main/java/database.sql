@@ -70,3 +70,19 @@ INSERT INTO `role`(`id`, `role`) VALUES (1,"ROLE_ADMIN");
 INSERT INTO `role`(`id`, `role`) VALUES (2,"ROLE_USER");
 INSERT INTO `user_snacks`(`id`, `email`, `password`) VALUES (1,'admin@lulanches.com','mundomagicodeoz');
 INSERT INTO `user_snacks_roles`(`user_snacks_id`, `roles_id`) VALUES (1,1);
+INSERT INTO `user_snacks`(`id`, `email`, `password`) VALUES (2,'user@lulanches.com','mundomagicodafantasia');
+INSERT INTO `user_snacks_roles`(`user_snacks_id`, `roles_id`) VALUES (2,2);
+
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (1,"Bread","Pão");
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (2,"Cheese","Queijo");
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (3,"Salad","Salada");
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (4,"Sauce","Molho");
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (5,"Spice","Tempero");
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (6,"Filling","Recheio");
+
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (7,"Arugula","Rucula");
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (8,"Lettuce","Alface");
+INSERT INTO `description_item`(`id`, `word_en_us`, `word_pt_br`) VALUES (9,"Tomato","Tomate");
+
+INSERT INTO `ingridient_type` (`id`, `type_id`) VALUES ('1', '3');
+INSERT INTO `ingridient` (`id`, `price`, `description_id`, `ingridient_type_id`) VALUES ('1', '0.99', '8', '1');

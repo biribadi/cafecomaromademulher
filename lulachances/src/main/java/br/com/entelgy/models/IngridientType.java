@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class IngridientType implements Serializable{
@@ -19,7 +20,8 @@ public class IngridientType implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String type;
+	@OneToOne
+	private DescriptionItem type;
 	
 	@OneToMany(mappedBy="ingridientType")
 	private List<Ingridient> ingridients;
@@ -32,14 +34,11 @@ public class IngridientType implements Serializable{
 		this.id = id;
 	}
 
-	public String getType() {
+	public DescriptionItem getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(DescriptionItem type) {
 		this.type = type;
 	}
-	
-	
-
 }

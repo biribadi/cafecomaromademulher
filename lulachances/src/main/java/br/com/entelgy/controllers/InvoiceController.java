@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,43 +35,44 @@ public class InvoiceController extends BaseController {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<InvoiceDto>> getAllUndeliveredInvoice() {
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> getAllUndeliveredInvoice() {
 
 		List<Invoice> invoices = invoiceService.findAllUndelivered();
 		if (invoices == null) {
-			return new ResponseEntity<List<InvoiceDto>>(HttpStatus.NO_CONTENT);
+			return ResponseEntity.notFound().build();
 		}
 		List<InvoiceDto> dtos = invoices.stream().map(invoice -> convertToInvoiceDto(invoice))
 				.collect(Collectors.toList());
-		return new ResponseEntity<List<InvoiceDto>>(dtos, HttpStatus.OK);
+		return ResponseEntity.ok(dtos);
 
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<InvoiceDto> findInvoice(@PathVariable Integer id) {
+	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> findInvoice(@PathVariable Integer id) {
 
 		if (id <= 0) {
-			return new ResponseEntity<InvoiceDto>(HttpStatus.BAD_REQUEST);
+			return ResponseEntity.notFound().build();
 		} else {
 			Invoice invoice = invoiceService.getById(id);
 			if (invoice == null) {
-				return new ResponseEntity<InvoiceDto>(HttpStatus.NO_CONTENT);
+				return ResponseEntity.notFound().build();
 			} else {
 				InvoiceDto dto = convertToInvoiceDto(invoice);
-				return new ResponseEntity<InvoiceDto>(dto, HttpStatus.OK);
+				return ResponseEntity.ok(dto);
 			}
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json" , consumes="application/json")
+	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE , consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> saveInvoice(@Validated @RequestBody InvoiceDto invoiceDto, UriComponentsBuilder ucBuilder) throws ParseException{
 		
 		Invoice invoice = convertToInvoiceEntity(invoiceDto);
 		invoiceService.save(invoice);
 		URI resourcePath = ucBuilder.path("/invoices/{id}").buildAndExpand(invoice.getId()).toUri();
-		return new ResponseEntity<Void>(mountHeader(resourcePath), HttpStatus.CREATED);
-		
+		return ResponseEntity.created(resourcePath).build();
 	}
 
 	private Invoice convertToInvoiceEntity(InvoiceDto invoiceDto) throws ParseException {

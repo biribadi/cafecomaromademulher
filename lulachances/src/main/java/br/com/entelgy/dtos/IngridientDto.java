@@ -7,6 +7,10 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(value=Include.NON_NULL)
 public class IngridientDto {
 	
 	private Integer id;
@@ -20,6 +24,8 @@ public class IngridientDto {
 	
 	@Min(0)
 	private BigDecimal price;
+	
+	private String description_teste;
 
 	public Integer getId() {
 		return id;
@@ -29,13 +35,9 @@ public class IngridientDto {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	public String description_br;
+	
+	public String description_en;
 
 	public IngridientTypeDto getIngridientType() {
 		return ingridientType;
@@ -51,5 +53,37 @@ public class IngridientDto {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public String getDescription_teste() {
+		return description_teste;
+	}
+
+	public void setDescription_teste(String description_teste) {
+		this.description_teste = description_teste;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription_br() {
+		return description_br;
+	}
+
+	public void setDescription_br(String description_br) {
+		this.description_br = description_br;
+	}
+
+	public String getDescription_en() {
+		return description_en;
+	}
+
+	public void setDescription_en(String description_en) {
+		this.description_en = description_en;
 	}
 }

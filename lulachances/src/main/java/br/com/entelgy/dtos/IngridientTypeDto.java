@@ -7,7 +7,7 @@ public class IngridientTypeDto {
 	private Integer id;
 	
 	@NotEmpty
-	private String type;
+	private String typeTranslated;
 
 	public Integer getId() {
 		return id;
@@ -17,13 +17,12 @@ public class IngridientTypeDto {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getTypeTranslated() {
+		return typeTranslated;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setTypeTranslated(String typeTranslated) {
+		this.typeTranslated = typeTranslated;
 	}
-
 	
 }
