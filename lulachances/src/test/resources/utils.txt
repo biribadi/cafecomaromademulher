@@ -1,0 +1,25 @@
+OkHttpClient client = new OkHttpClient();
+
+Request request = new Request.Builder()
+  .url("http://localhost:8090/v1/snack/ingridient")
+  .get()
+  .addHeader("content-type", "application/json")
+  .addHeader("authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGx1bGFuY2hlcy5jb20iLCJhdWRpZW5jZSI6IndlYiIsImNyZWF0ZWQiOjE0ODIzMzk2ODU5OTYsImV4cCI6MTQ4Mjk0NDQ4Nn0.YOh0T2zPHReM6y9L96LPiNLQ4QJOvg2Rxyk14ca50f4k48o84ATHOYaTTdc557U0yHkkkoX72q7j6fnMZu6GPQ")
+  .addHeader("accept-language", "en")
+  .addHeader("cache-control", "no-cache")
+  .build();
+
+Response response = client.newCall(request).execute();
+
+OkHttpClient client = new OkHttpClient();
+
+Request request = new Request.Builder()
+  .url("http://localhost:8090/v1/snack/")
+  .get()
+  .addHeader("content-type", "application/json")
+  .addHeader("authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGx1bGFuY2hlcy5jb20iLCJhdWRpZW5jZSI6IndlYiIsImNyZWF0ZWQiOjE0ODIzMzk2ODU5OTYsImV4cCI6MTQ4Mjk0NDQ4Nn0.YOh0T2zPHReM6y9L96LPiNLQ4QJOvg2Rxyk14ca50f4k48o84ATHOYaTTdc557U0yHkkkoX72q7j6fnMZu6GPQ")
+  .addHeader("accept-language", "en")
+  .addHeader("cache-control", "no-cache")
+  .build();
+
+Response response = client.newCall(request).execute();
