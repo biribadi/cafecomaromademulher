@@ -26,6 +26,9 @@ public class DescriptionItem implements Serializable{
 	
 	@OneToOne(mappedBy="type")
 	private IngridientType ingridientType;
+	
+	@OneToOne(mappedBy="description")
+	private Snack snack;
 
 	public Long getId() {
 		return id;

@@ -35,7 +35,7 @@ public class ControllerValidationHandler {
     MessageDto message = null;
     if (error != null) {
       Locale currentLocale = LocaleContextHolder.getLocale();
-      String msg = msgSource.getMessage(error.getDefaultMessage(), null, currentLocale);
+      String msg = msgSource.getMessage(error.getField() + "requerid", null, currentLocale);
       message = new MessageDto(MessageType.ERROR, msg);
     }
     return message;

@@ -1,15 +1,15 @@
 package br.com.entelgy.controllers;
 
+import static br.com.entelgy.utils.DtoHelper.*;
+
 import java.net.URI;
 import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,21 +26,18 @@ import br.com.entelgy.models.Invoice;
 import br.com.entelgy.services.InvoiceService;
 
 @RestController
-@RequestMapping(value = "invoices")
-public class InvoiceController extends BaseController {
+@RequestMapping(value = "v1")
+public class InvoiceController  {
 
 	@Autowired
 	private InvoiceService invoiceService;
 
-	@Autowired
-	private ModelMapper modelMapper;
-
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "invoice",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> getAllUndeliveredInvoice() {
 
 		List<Invoice> invoices = invoiceService.findAllUndelivered();
-		if (invoices == null) {
+		if (invoices == null || invoices.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		List<InvoiceDto> dtos = invoices.stream().map(invoice -> convertToInvoiceDto(invoice))
@@ -49,12 +46,12 @@ public class InvoiceController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "invoice/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> findInvoice(@PathVariable Integer id) {
 
 		if (id <= 0) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		} else {
 			Invoice invoice = invoiceService.getById(id);
 			if (invoice == null) {
@@ -66,33 +63,13 @@ public class InvoiceController extends BaseController {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE , consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "invoice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE , consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> saveInvoice(@Validated @RequestBody InvoiceDto invoiceDto, UriComponentsBuilder ucBuilder) throws ParseException{
 		
 		Invoice invoice = convertToInvoiceEntity(invoiceDto);
 		invoiceService.save(invoice);
-		URI resourcePath = ucBuilder.path("/invoices/{id}").buildAndExpand(invoice.getId()).toUri();
+		URI resourcePath = ucBuilder.path("/invoice/{id}").buildAndExpand(invoice.getId()).toUri();
 		return ResponseEntity.created(resourcePath).build();
-	}
-
-	private Invoice convertToInvoiceEntity(InvoiceDto invoiceDto) throws ParseException {
-		Invoice invoice = modelMapper.map(invoiceDto, Invoice.class);
-
-		// set user id
-		// invoice.setCustomer(customer);
-		// if (postDto.getId() != null) {
-		// Post oldPost = postService.getPostById(postDto.getId());
-		// post.setRedditID(oldPost.getRedditID());
-		// post.setSent(oldPost.isSent());
-		// }
-		return invoice;
-	}
-
-	private InvoiceDto convertToInvoiceDto(Invoice invoice) {
-		InvoiceDto invoiceDto = modelMapper.map(invoice, InvoiceDto.class);
-		invoiceDto.setIsDelivered(invoice.getDeveliry().getIsDelivered());
-		invoiceDto.setCustomerId(invoice.getCustomer().getId());
-		return invoiceDto;
 	}
 
 }

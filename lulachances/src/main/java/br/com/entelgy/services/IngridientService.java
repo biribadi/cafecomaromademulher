@@ -9,7 +9,7 @@ import br.com.entelgy.models.Ingridient;
 @Service(value="ingridientService")
 public interface IngridientService {
 	
-	Iterable<Ingridient> findAll();
+	List<Ingridient> findAll();
 
 	void saveIngridient(Ingridient ingridients);
 

@@ -1,13 +1,10 @@
 package br.com.entelgy.dtos;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class IngridientTypeDto {
 	
 	private Integer id;
 	
-	@NotEmpty
-	private String typeTranslated;
+	private String type;
 
 	public Integer getId() {
 		return id;
@@ -17,12 +14,11 @@ public class IngridientTypeDto {
 		this.id = id;
 	}
 
-	public String getTypeTranslated() {
-		return typeTranslated;
+	public String getType() {
+		return type;
 	}
 
-	public void setTypeTranslated(String typeTranslated) {
-		this.typeTranslated = typeTranslated;
-	}
-	
+	public void setType(String type) {
+		this.type = type;
+	}	
 }

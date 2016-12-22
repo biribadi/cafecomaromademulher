@@ -17,8 +17,8 @@ public class IngridientServiceImpl implements IngridientService{
 	@Autowired
 	private IngridientRepository repository;
 	
-	public Iterable<Ingridient> findAll(){
-		return repository.findAll();
+	public List<Ingridient> findAll(){
+		return (List<Ingridient>) repository.findAll();
 	}
 
 	public void saveIngridient(Ingridient ingridient) {

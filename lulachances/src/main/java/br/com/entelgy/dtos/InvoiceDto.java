@@ -7,6 +7,8 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class InvoiceDto {
 
 	private Integer id;
@@ -17,19 +19,16 @@ public class InvoiceDto {
 	@NotNull
 	private PaymentDto paymentDto;
 	
-	@NotNull
-	@Min(0)
 	private BigDecimal totalPrice;
 	
+	@DateTimeFormat(pattern="dd/mm/YYYY")
 	private Calendar createdOn;
 	
-	private Boolean isDelivered;
+	private Byte isDelivered;
 	
 	@NotNull
-	private Boolean exchangeNeeded;
+	private Byte exchangeNeeded;
 	
-	private Integer customerId;
-
 	public Integer getId() {
 		return id;
 	}
@@ -70,27 +69,19 @@ public class InvoiceDto {
 		this.createdOn = createdOn;
 	}
 
-	public Boolean getIsDelivered() {
+	public Byte getIsDelivered() {
 		return isDelivered;
 	}
 
-	public void setIsDelivered(Boolean isDelivered) {
+	public void setIsDelivered(Byte isDelivered) {
 		this.isDelivered = isDelivered;
 	}
 
-	public Boolean getExchangeNeeded() {
+	public Byte getExchangeNeeded() {
 		return exchangeNeeded;
 	}
 
-	public void setExchangeNeeded(Boolean exchangeNeeded) {
+	public void setExchangeNeeded(Byte exchangeNeeded) {
 		this.exchangeNeeded = exchangeNeeded;
 	}
-
-	public Integer getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
-	}	
 }

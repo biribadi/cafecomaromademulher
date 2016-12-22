@@ -15,17 +15,13 @@ public class IngridientDto {
 	
 	private Integer id;
 	
-	@NotEmpty
-	@NotNull
 	private String description;
 	
 	@NotNull
 	private IngridientTypeDto ingridientType;
 	
-	@Min(0)
 	private BigDecimal price;
 	
-	private String description_teste;
 
 	public Integer getId() {
 		return id;
@@ -53,14 +49,6 @@ public class IngridientDto {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
-	}
-
-	public String getDescription_teste() {
-		return description_teste;
-	}
-
-	public void setDescription_teste(String description_teste) {
-		this.description_teste = description_teste;
 	}
 
 	public String getDescription() {

@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Delivery implements Serializable{
@@ -23,11 +25,11 @@ public class Delivery implements Serializable{
 	
 	private Calendar deliveryDate;
 	
-	private Integer develiveryNumber;
+	private Integer deliveryNumber;
 	
 	private Boolean isDelivered;
 	
-	@OneToMany(mappedBy="develiry")
+	@OneToMany(mappedBy="delivery")
 	private Set<Invoice> invoice;
 
 	public int getId() {
@@ -46,13 +48,13 @@ public class Delivery implements Serializable{
 		this.deliveryDate = deliveryDate;
 	}
 
-	public Integer getDeveliveryNumber() {
-		 setDeveliveryNumber(delivery_number++);
-		 return develiveryNumber;
+	public Integer getDeliveryNumberNumber() {
+		setDeliveryNumberNumber(delivery_number++);
+		 return deliveryNumber;
 	}
 
-	public void setDeveliveryNumber(Integer develiveryNumber) {
-		this.develiveryNumber = develiveryNumber;
+	public void setDeliveryNumberNumber(Integer deliveryNumber) {
+		this.deliveryNumber = deliveryNumber;
 	}
 
 	public Boolean getIsDelivered() {

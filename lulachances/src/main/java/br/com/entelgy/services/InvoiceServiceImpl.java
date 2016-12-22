@@ -18,12 +18,6 @@ public class InvoiceServiceImpl implements InvoiceService{
 	
 	@Autowired
 	private InvoiceRepository invoiceRepository;
-	
-	@Autowired
-	private SnackRepository snackRepository;
-	
-	@Autowired
-	private IngridientRepository ingridientRepository;
 
 	@Override
 	public Invoice save(Invoice invoice) {

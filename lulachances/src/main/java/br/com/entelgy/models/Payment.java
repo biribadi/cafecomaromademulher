@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Payment {
@@ -12,7 +13,9 @@ public class Payment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String description;
+	@OneToOne
+	private DescriptionItem description;
+	
 
 	public Integer getId() {
 		return id;
@@ -22,14 +25,11 @@ public class Payment {
 		this.id = id;
 	}
 
-	public String getDescription() {
+	public DescriptionItem getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(DescriptionItem description) {
 		this.description = description;
 	}
-	
-	
-
 }

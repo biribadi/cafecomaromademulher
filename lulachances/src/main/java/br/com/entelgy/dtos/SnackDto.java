@@ -12,14 +12,11 @@ public class SnackDto {
 	
 	private Integer id;
 	
-	@NotNull
-	@NotEmpty
 	private String description;
 	
 	@NotNull
 	private List<IngridientDto> ingridients;
 	
-	@Min(0)
 	private BigDecimal price;
 
 	public Integer getId() {

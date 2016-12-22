@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +16,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 @Entity
-@NamedQuery(name = "Invoice.findInvoicesUndelivered", query = "SELECT i FROM Invoice i join i.develiry d"
+@NamedQuery(name = "Invoice.findInvoicesUndelivered", query = "SELECT i FROM Invoice i join i.delivery d"
 		+ " WHERE d.isDelivered = false")
 public class Invoice implements Serializable{
 	
@@ -33,17 +35,14 @@ public class Invoice implements Serializable{
     inverseJoinColumns= {@JoinColumn(name="snack_id")})
 	private List<Snack> snacks;
 	
-	private BigDecimal totalPrice;
-	
-	@JoinColumn
 	@ManyToOne(optional = false)
 	private Payment formOfPayment;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	private Customer customer;
+	@ManyToOne(optional = false)
+	private UserSnacks customer;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	private Delivery develiry;
+	@ManyToOne
+	private Delivery delivery;
 	
 	private Calendar createdOn;
 	
@@ -67,14 +66,6 @@ public class Invoice implements Serializable{
 		this.snacks = snacks;
 	}
 
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
 	public Payment getFormOfPayment() {
 		return formOfPayment;
 	}
@@ -82,21 +73,21 @@ public class Invoice implements Serializable{
 	public void setFormOfPayment(Payment formOfPayment) {
 		this.formOfPayment = formOfPayment;
 	}
-
-	public Customer getCustomer() {
+	
+	public UserSnacks getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(UserSnacks customer) {
 		this.customer = customer;
 	}
 
-	public Delivery getDeveliry() {
-		return develiry;
+	public Delivery getDelivery() {
+		return delivery;
 	}
 
-	public void setDeveliry(Delivery develiry) {
-		this.develiry = develiry;
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
 	}
 
 	public Calendar getCreatedOn() {
@@ -122,6 +113,18 @@ public class Invoice implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public BigDecimal calculePrice() {
+		
+		BigDecimal value = BigDecimal.ZERO;
+		if (snacks != null && !snacks.isEmpty()){
+			for (Snack snack : snacks){
+				value = value.add(snack.calculePrice());
+			}
+		}
+		return value;
+	}
+
 	
 	
 }
